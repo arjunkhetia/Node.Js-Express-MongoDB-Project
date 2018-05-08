@@ -1,4 +1,4 @@
-# Node-Express Project   ![Version][version-image]
+# Node-Express-MongoDB Project   ![Version][version-image]
 
 ![Linux Build][linuxbuild-image]
 ![Windows Build][windowsbuild-image]
@@ -7,7 +7,7 @@
 ![Dependency Status][dependency-image]
 ![devDependencies Status][devdependency-image]
 
-The quickest way to get start with Node.Js & Express, just clone the project:
+The quickest way to get start with Node.Js, Express & MongoDB, just clone the project:
 
 ```bash
 $ git clone https://github.com/arjunkhetia/Node.Js-Express-Project.git
@@ -61,6 +61,21 @@ var stream = rfs('file.log', {
     interval: '1d',  // rotate daily
     compress: 'gzip' // compress rotated files
 });
+```
+
+# Mongo Database Connectivity (with connection pool)
+
+MongoDB driver for Node.js. A Connection Pool is a cache of database connections maintained by your driver so that connections can be re-used when new connections to the database are required.
+
+```js
+var MongoClient = require('mongodb').MongoClient;
+var option = {
+  reconnectTries : 5, // Server attempt to reconnect.
+  reconnectInterval: 1000, // Server will wait between retries.
+  keepAlive: true, // Keep connection alive.
+  poolSize : 10, // The maximum number of connections to create at once.
+  connectTimeoutMS: 5000 // TCP Connection timeout setting.
+};
 ```
 
 [version-image]: https://img.shields.io/badge/Version-1.0.0-orange.svg

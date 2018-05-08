@@ -10,6 +10,7 @@ var datalogger = require('./utilities/datalogger');
 var fs = require('fs');
 var rfs = require('rotating-file-stream');
 var helmet = require('helmet');
+var db = require('./dbconfig');
 
 // Defining routes
 var routes = require('./routes');
@@ -89,6 +90,13 @@ app.use(function(err, req, res, next) {
   res.send({"message":"404 Page Not Found..!"});
   // uncomment to render the error page
   // res.render('error');
+});
+
+db.connect()
+    .then(() => console.log('Mongo Database connected...'))
+    .catch((e) => {
+        console.error(e);
+        process.exit(1);
 });
 
 module.exports = app;
