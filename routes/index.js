@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   .find({})
   .toArray(function(err, result) {
       if(err) throw err;
-      res.render('index', { title: 'Express', data: JSON.stringify(result) });
+      res.render('index', { title: 'Express', data: JSON.stringify(result, null, 4) });
   });
 });
 

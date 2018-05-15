@@ -9,11 +9,14 @@ var option = {
   reconnectInterval: 1000,
   keepAlive: true,
   poolSize : 10,
-  connectTimeoutMS: 5000
+  connectTimeoutMS: 5000,
+  useNewUrlParser: true
 };
 
+var MongoDBClient = new MongoClient(URI, option);
+
 module.exports.connect = () => new Promise((resolve, reject) => {
-    MongoClient.connect(URI, option, function(err, client) {
+    MongoDBClient.connect(function(err, client) {
         if (err) { reject(err); return; };
         var db = client.db('mongodb');
         resolve(db);
@@ -26,4 +29,11 @@ module.exports.get = () => {
         throw new Error('Call Connect First...');
     }
     return connection;
+}
+
+module.exports.close = () => {
+    if(!connection) {
+        throw new Error('Call Connect First...');
+    }
+    MongoDBClient.close();
 }
