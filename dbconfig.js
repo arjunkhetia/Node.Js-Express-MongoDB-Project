@@ -10,7 +10,8 @@ var option = {
   keepAlive: true,
   poolSize : 10,
   connectTimeoutMS: 5000,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 };
 
 var MongoDBClient = new MongoClient(URI, option);
