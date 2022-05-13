@@ -1,4 +1,4 @@
-# Node-Express-MongoDB Project   ![Version][version-image]
+# Node Express MongoDB Project   ![Version][version-image]
 
 ![Linux Build][linuxbuild-image]
 ![Windows Build][windowsbuild-image]
@@ -135,10 +135,9 @@ MongoDB driver for Node.js. A Connection Pool is a cache of database connections
 ```js
 var MongoClient = require('mongodb').MongoClient;
 var option = {
-  reconnectTries : 5, // Server attempt to reconnect.
-  reconnectInterval: 1000, // Server will wait between retries.
   keepAlive: true, // Keep connection alive.
-  poolSize : 10, // The maximum number of connections to create at once.
+  minPoolSize: 0, // The minimum number of connections to create at once.
+  maxPoolSize : 10, // The maximum number of connections to create at once.
   connectTimeoutMS: 5000 // TCP Connection timeout setting.
 };
 ```
@@ -154,11 +153,16 @@ app.use(require('express-status-monitor')({
   spans: [{
     interval: 1, // every second
     retention: 60 // keep 60 datapoints in memory
+  }, {
+    interval: 5, // every 5 seconds
+    retention: 60
   }],
   chartVisibility: {
     cpu: true, // enable CPU Usage
     mem: true, // enable Memory Usage
     load: true, // enable One Minute Load Avg
+    eventLoop: true, // enable EventLoop Precess Usage
+    heap: true, // enable Heap Memory Usage
     responseTime: true, // enable Response Time
     rps: true, // enable Requests per Second
     statusCodes: true // enable Status Codes
@@ -168,7 +172,8 @@ app.use(require('express-status-monitor')({
     host: 'localhost' // server host name
     path: '/users', // endpoint to check status
     port: '3000' // server port
-  }] // health check will be considered successful if the endpoint returns a 200 status code
+  }], // health check will be considered successful if the endpoint returns a 200 status code
+  ignoreStartsWith: '/admin' // ignore path starts with
 }));
 ```
 
